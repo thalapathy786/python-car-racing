@@ -1074,41 +1074,41 @@ async def main():
 
             elif event.type == pygame.FINGERDOWN:
 
-    pos = (
-        int(event.x * WIDTH),
-        int(event.y * HEIGHT)
-    )
+            pos = (
+                int(event.x * WIDTH),
+                int(event.y * HEIGHT)
+            )
 
     # ========================================================
     # START SCREEN
     # ========================================================
 
-    if not game_started:
+            if not game_started:
 
-        if start_button.collidepoint(pos):
+                if start_button.collidepoint(pos):
 
-            game_started = True
+                    game_started = True
+        
+                    reset_game()
 
-            reset_game()
-
-            start_countdown()
+                    start_countdown()
 
     # ========================================================
     # GAME
     # ========================================================
 
-    elif not game_over:
+            elif not game_over:
 
         # ----------------------------------------------------
         # PAUSE
         # ----------------------------------------------------
 
-        pause_area = pygame.Rect(
-            pause_button.left - sx(40),
-            pause_button.top - sy(40),
-            pause_button.width + sx(80),
-            pause_button.height + sy(80)
-        )
+            pause_area = pygame.Rect(
+                pause_button.left - sx(40),
+                pause_button.top - sy(40),
+                pause_button.width + sx(80),
+                pause_button.height + sy(80)
+            )
 
         # ----------------------------------------------------
         # SOUND
