@@ -1074,44 +1074,98 @@ async def main():
 
             elif event.type == pygame.FINGERDOWN:
 
-                pos = (
-                    int(event.x * WIDTH),
-                    int(event.y * HEIGHT)
-                )
+    pos = (
+        int(event.x * WIDTH),
+        int(event.y * HEIGHT)
+    )
 
-                if not game_started:
+    # ========================================================
+    # START SCREEN
+    # ========================================================
 
-                    if start_button.collidepoint(pos):
+    if not game_started:
 
-                        game_started = True
+        if start_button.collidepoint(pos):
 
-                        reset_game()
+            game_started = True
 
-                        start_countdown()
+            reset_game()
 
-                elif not game_over:
+            start_countdown()
 
-                    if pause_button.collidepoint(pos):
+    # ========================================================
+    # GAME
+    # ========================================================
 
-                        if not countdown_active:
+    elif not game_over:
 
-                            paused = not paused
+        # ----------------------------------------------------
+        # PAUSE
+        # ----------------------------------------------------
 
-                            clear_controls()
+        pause_area = pygame.Rect(
+            pause_button.left - sx(40),
+            pause_button.top - sy(40),
+            pause_button.width + sx(80),
+            pause_button.height + sy(80)
+        )
 
-                            play_sound(click_sound)
+        # ----------------------------------------------------
+        # SOUND
+        # ----------------------------------------------------
 
-                    elif sound_button.collidepoint(pos):
+        sound_area = pygame.Rect(
+            sound_button.left - sx(40),
+            sound_button.top - sy(40),
+            sound_button.width + sx(80),
+            sound_button.height + sy(80)
+        )
 
-                        sound_enabled = not sound_enabled
+        # ----------------------------------------------------
+        # PAUSE BUTTON
+        # ----------------------------------------------------
 
-                        if sound_enabled:
-                            play_sound(click_sound)
+        if pause_area.collidepoint(pos):
 
-                    elif not paused and not countdown_active:
+            if not countdown_active:
 
-                        set_touch_control(pos)
+                paused = not paused
 
+                clear_controls()
+
+                play_sound(click_sound)
+
+        # ----------------------------------------------------
+        # SOUND BUTTON
+        # ----------------------------------------------------
+
+        elif sound_area.collidepoint(pos):
+
+            sound_enabled = not sound_enabled
+
+            if sound_enabled:
+
+                play_sound(click_sound)
+
+        # ----------------------------------------------------
+        # LEFT / RIGHT
+        # ----------------------------------------------------
+
+        elif not paused and not countdown_active:
+
+            set_touch_control(pos)
+
+    # ========================================================
+    # GAME OVER
+    # ========================================================
+
+    else:
+
+        reset_game()
+
+        start_countdown()
+
+        game_started = True
             # ------------------------------------------------
             # TOUCH MOTION
             # ------------------------------------------------
