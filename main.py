@@ -277,6 +277,28 @@ def update_buttons():
 
 update_buttons()
 
+# ============================================================
+# TOUCH AREAS FOR TOP BUTTONS
+# ============================================================
+
+def get_pause_touch_rect():
+
+    return pygame.Rect(
+        pause_button.left - sx(20),
+        pause_button.top - sy(20),
+        pause_button.width + sx(40),
+        pause_button.height + sy(40)
+    )
+
+
+def get_sound_touch_rect():
+
+    return pygame.Rect(
+        sound_button.left - sx(20),
+        sound_button.top - sy(20),
+        sound_button.width + sx(40),
+        sound_button.height + sy(40)
+    )
 
 # ============================================================
 # GAME STATE
@@ -983,7 +1005,7 @@ async def main():
                     elif not game_over:
 
                         # PAUSE
-                        if pause_button.collidepoint(pos):
+                        if get_pause_touch_rect().collidepoint(pos):
 
                             if not countdown_active:
 
@@ -994,7 +1016,7 @@ async def main():
                                 play_sound(click_sound)
 
                         # SOUND
-                        elif sound_button.collidepoint(pos):
+                        elif get_sound_touch_rect().collidepoint(pos):
 
                             sound_enabled = not sound_enabled
 
